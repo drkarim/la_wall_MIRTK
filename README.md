@@ -1,18 +1,26 @@
-# Dice Similarity Index for 3D medical image slices
-Finds the [Sorensen dice](http://en.wikipedia.org/wiki/Sørensen–Dice_coefficient) of two 3D (medical) image binary masks. 
-
-The slices can be defined by the user using the --x, --y or, --z switches
-
-However, it requires post-processing for finalising the atrial wall segmentation. The following repository contains two separate tools that accomplish these post-processing tasks. 
+# Segmentation for atrial wall from CT Angiography 
+A simple segmentation method that segments the atrial wall using iterative dilation and intensity thresholding. It requires the intensity distribution information of the ventricular myocardium. 
 
 ## Usage 
-The usage for the first tool ```combinmask``` is:
+The usage is through command line: 
 ```
-./slice_dice -i1 <img1> -i2 <img2> -o <output dice txt> -txt <append text> --x --y --z <along which direction>
+la_wall <input_img> <la_mask> <output_img> <intensity_t1> <intensity_t2> <iterations_n>
 ```
-This program outputs the mean and standard deviation of dice in each slice along the specified X, Y, Z direction. 
 
+## Image requirements 
+Note that the program assumes that the input images are CTA (contrast-enhanced angiography). 
 
+This program outputs the la wall segmented from endocardial segmentation based on intensity values [t1,t2] and dilation with n steps. 
+
+The program expects a binary mask to be provided as an input parameter ```<la_mask>```, where ```1``` is set as endocardium. This is the endocardial segmentation of the atrial blood pool. 
+
+All input image files are either NifTII or GIPL or HDR Analyze. 
+
+## Parameters 
+the ```<intensity_t1>``` and ```<intensity_t2>``` are intensity ranges manually selected for the atrial wall. The values ```t1``` and ```t2``` are ideally obtained from ventricular myocardium, +/- 2-standard deviations of the mean of an intensity sample from that region. 
+
+## Output 
+The program outputs a binary image with the wall labelled sequentially at each iterative step as 1, 2 and so on. 
 
 ## Author 
 ```
