@@ -4,7 +4,7 @@ A simple segmentation method that segments the atrial wall using iterative dilat
 ## Usage 
 The usage is through command line: 
 ```
-la_wall <input_img> <la_mask> <output_img> <intensity_t1> <intensity_t2> <iterations_n>
+mirtk evaluate-la-wall <input_img> <la_mask> <output_img> <intensity_t1> <intensity_t2> <iterations_n>
 ```
 
 ## Image requirements 
